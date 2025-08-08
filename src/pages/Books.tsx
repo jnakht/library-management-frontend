@@ -4,6 +4,7 @@ import { useGetAllBooksQuery } from "@/redux/features/books/booksApi";
 
 export default function Books() {
 
+    
     const { data, error, isLoading } = useGetAllBooksQuery(undefined, {
         pollingInterval: 3000,
         refetchOnFocus: true,

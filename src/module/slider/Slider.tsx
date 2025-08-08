@@ -13,7 +13,8 @@ import Slide3 from './Slide3';
 
 export default function Slider() {
   return (
-    <div className='h-[50vh] md:h-[90vh] w-[100vw]'>
+    // h-[50vh] md:h-[60vh] 
+    <div className='h-full w-[100vw]'>
       <Swiper
         // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
@@ -40,7 +41,7 @@ export default function Slider() {
           <Slide3></Slide3>
         </SwiperSlide>
 
-        ...
+        {/* ... */}
       </Swiper>
     </div>
   );

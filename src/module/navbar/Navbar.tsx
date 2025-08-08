@@ -21,8 +21,8 @@ export default function Navbar() {
                 <p className="text-[#fb923c]">Ventory</p>
             </div>
             {/* desktop links */}
-            <div className="hidden md:block">
-                <ul className="flex items-center gap-6 text-gray-600">
+            <div className="hidden w-full  md:block">
+                <ul className="flex justify-center items-center gap-6 text-gray-600">
                     {
                         NavbarMenu.map(item => 
                             <li>
@@ -35,7 +35,7 @@ export default function Navbar() {
                 </ul>
             </div>
             {/* icons */}
-            <div className="flex items-center gap-4">
+            <div className="flex  justify-end items-center gap-4">
                 <button className="text-2xl hover:bg-[#ff8901] hover:text-white p-2 rounded-full duration-200">
                     <CiSearch/>
                 </button>

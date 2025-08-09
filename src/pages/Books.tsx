@@ -4,6 +4,7 @@ import { useState } from "react";
 import TablePagination from '@mui/material/TablePagination';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setPage, setRowsPerPage, setTotalData } from "@/redux/features/books/paginationSlice";
+import { cn } from "@/lib/utils";
 
 
 export default function Books() {
@@ -65,36 +66,45 @@ export default function Books() {
   }
 
   return (
-    <div>
+    <div className="max-w-[80%] mx-auto">
       {/* : Title, Author, Genre, ISBN, Copies, Availability, and Actions. */}
-      <table className="table-auto md:table-fixed">
-        <thead>
+      <div className="overflow-x-auto">
+        <table className="w-full border border-gray-200 text-sm text-left text-gray-700">
+        <thead className="bg-gray-100 text-gray-700 uppercase text-xs sticky top-0">
           <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>ISBN</th>
-            <th>Copies</th>
-            <th>Availability</th>
-            <th>Actions</th>
+            <th className="px-4 py-3 border-b">Title</th>
+            <th className="px-4 py-3 border-b">Author</th>
+            <th className="px-4 py-3 border-b">Genre</th>
+            <th className="px-4 py-3 border-b">ISBN</th>
+            <th className="px-4 py-3 border-b">Copies</th>
+            <th className="px-4 py-3 border-b">Availability</th>
+            <th className="px-4 py-3 border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
           {
             data?.data?.map(book =>
-              <tr>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.genre}</td>
-                <td>{book.isbn}</td>
-                <td>{book.copies}</td>
-                <td>{book.availability}</td>
-                <td>actions</td>
+              <tr key={book.id} className="border-b hover:bg-gray-50">
+                <td className="px-4 py-3">{book.title}</td>
+                <td className="px-4 py-3">{book.author}</td>
+                <td className="px-4 py-3">{book.genre}</td>
+                <td className="px-4 py-3">{book.isbn}</td>
+                <td className="px-4 py-3">{book.copies}</td>
+                <td className="px-4 py-3">{
+                  book?.available ? <div className="flex items-center gap-2">
+                  <div className="rounded-full size-3 bg-green-500"></div> <span>available</span>
+                  </div> :
+                  <div className="flex items-center gap-2">
+                  <div className="rounded-full size-3 bg-red-500"></div> <span>unavailable</span>
+                  </div>
+                  }</td>
+                <td className="px-4 py-3">actions</td>
               </tr>
             )
           }
         </tbody>
       </table>
+      </div>
 
 
       <TablePagination

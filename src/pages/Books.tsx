@@ -5,6 +5,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setPage, setRowsPerPage, setTotalData } from "@/redux/features/books/paginationSlice";
 import { cn } from "@/lib/utils";
+import BookRow from "@/module/books/BookRow";
 
 
 export default function Books() {
@@ -70,7 +71,7 @@ export default function Books() {
       {/* : Title, Author, Genre, ISBN, Copies, Availability, and Actions. */}
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-200 text-sm text-left text-gray-700">
-        <thead className="bg-gray-100 text-gray-700 uppercase text-xs sticky top-0">
+        <thead className="bg-[#7626FD] text-white uppercase text-xs sticky top-0">
           <tr>
             <th className="px-4 py-3 border-b">Title</th>
             <th className="px-4 py-3 border-b">Author</th>
@@ -84,22 +85,7 @@ export default function Books() {
         <tbody>
           {
             data?.data?.map(book =>
-              <tr key={book.id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-3">{book.title}</td>
-                <td className="px-4 py-3">{book.author}</td>
-                <td className="px-4 py-3">{book.genre}</td>
-                <td className="px-4 py-3">{book.isbn}</td>
-                <td className="px-4 py-3">{book.copies}</td>
-                <td className="px-4 py-3">{
-                  book?.available ? <div className="flex items-center gap-2">
-                  <div className="rounded-full size-3 bg-green-500"></div> <span>available</span>
-                  </div> :
-                  <div className="flex items-center gap-2">
-                  <div className="rounded-full size-3 bg-red-500"></div> <span>unavailable</span>
-                  </div>
-                  }</td>
-                <td className="px-4 py-3">actions</td>
-              </tr>
+              <BookRow book={book}/>
             )
           }
         </tbody>

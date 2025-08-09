@@ -8,7 +8,7 @@ export const NavbarMenu = [
     {
         id: 2,
         title: 'Books',
-        link: '#'
+        link: '/books'
     },
     {
         id: 3,

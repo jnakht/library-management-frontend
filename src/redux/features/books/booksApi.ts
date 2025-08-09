@@ -10,7 +10,7 @@ export const booksApi = createApi({
     }),
     endpoints: (build) => ({
         getAllBooks: build.query({
-            query: () => '/api/books'
+            query: (prop) => `/api/books?page=${prop?.page}&limit=${prop?.limit}`
         }),
     }),
 })

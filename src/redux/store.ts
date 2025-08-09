@@ -2,9 +2,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { booksApi } from './features/books/booksApi'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import paginationReducer from './features/books/paginationSlice'
 
 export const store = configureStore({
     reducer: {
+        pagination: paginationReducer,
         [booksApi.reducerPath]: booksApi.reducer,
     },
     middleware: (getDefaultMiddleware) => 

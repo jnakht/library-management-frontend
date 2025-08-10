@@ -41,14 +41,20 @@ export default function CreateBook() {
         <input  
         className="border-2 p-2 rounded-sm"
         placeholder="Full Name"
-        {...register("author", { required: true })} />
-        {errors.author && <span className="text-red-500">This field is required</span>}
+        {...register("author", { 
+          required: "Author Name Is Required",
+          pattern: {
+            value: /^(?=.*[A-Za-z])[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/,
+            message: "Author Name Can Only Contain Letters and Spaces, Accented Letters, Apostrophes ', Hyphens -; Name Must Contain At Least One Letter"
+          } 
+        })} />
+        {errors.author && <span className="text-red-500">{errors.author?.message}</span>}
 
         <label>Genre</label>
         <select 
         className="border-2 p-2 rounded-sm"
         defaultValue=""
-        {...register("genre", { required: "Please Select a Genre" })}>
+        {...register("genre", { required: "Genre Field Is Required" })}>
         <option  value="">---Select a Genre---</option>
         <option value="FICTION">FICTION</option>
         <option value="NON_FICTION">NON_FICTION</option>
@@ -64,7 +70,7 @@ export default function CreateBook() {
         className="border-2 p-2 rounded-sm"
         placeholder="ISBN number"
         {...register("isbn", { required: true })} />
-        {errors.isbn && <span className="text-red-500">This field is required</span>}
+        {errors.isbn && <span className="text-red-500">ISBN field is required</span>}
 
         <label>Description</label>
         <textarea  
@@ -76,8 +82,22 @@ export default function CreateBook() {
         <input 
         className="border-2 p-2 rounded-sm"
         placeholder="Number of Books"
-        {...register("copies", { required: true })} />
-        {errors.copies && <span className="text-red-500">This field is required</span>}
+        {...register("copies", { 
+          required: true,
+          valueAsNumber: true,
+          min: 0,
+          validate: {
+            isInteger: (v) => 
+             Number.isInteger(v) || "Copies Must Be an Integer"
+            }
+         })} />
+        {errors.copies?.type === 'required' && <span className="text-red-500">This field is required</span>}
+        {errors.copies?.type === "min" && (
+        <p className="text-red-500" role="alert">Copies Must Be a Positive Integer</p>
+        )}
+        {errors?.copies && (
+        <p className="text-red-500" role="alert">{errors?.copies?.message}</p>
+        )}
 
         <label>Availability</label>
         <select 

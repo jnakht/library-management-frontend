@@ -54,8 +54,8 @@ export default function EditBook() {
       }
 
   return (
-    <div>
-      <h3>Welcome to editing page</h3>
+    <div className="max-w-[80%] mx-auto mb-20">
+      <h3 className="text-4xl mb-4">Update Book</h3>
        <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-2 max-w-[50%] justify-center md:justify-start">
 

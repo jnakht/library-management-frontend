@@ -1,4 +1,17 @@
+import { addDays } from "date-fns";
 import { useForm, type SubmitHandler } from "react-hook-form"
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useState } from "react";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs, { Dayjs } from "dayjs";
+import * as React from 'react';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { TextField } from '@mui/material';
+import { useParams } from "react-router";
+
+
 
 type Inputs = {
     quantity: number,
@@ -6,6 +19,10 @@ type Inputs = {
 }
 
 export default function BorrowBook() {
+    const {id} = useParams();
+    console.log('This is the id to Borrow: ', id);
+
+    const [value, setValue] = React.useState<Dayjs | null>(null);
 
     const {
         register,
@@ -15,14 +32,17 @@ export default function BorrowBook() {
         reset,
       } = useForm<Inputs>()
     
-    //   const [createBook, { data, isLoading, error}] = useCreateBookMutation();
-    //   console.log("outside handler: ", data);
-      const onSubmit: SubmitHandler<Inputs> = async (value) => {
-        console.log(value);
+
+      const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        const isoString = value?.toISOString();
         //redux create book
-        // const res = await createBook(value).unwrap();
-        // console.log("inside handler: ", res);
+        const reqObject = {
+            book: id,
+            quantity: data,
+            dueDate: isoString
+        }
         reset(); // form.reset();
+        setValue(null);
       }
 
 
@@ -54,6 +74,18 @@ export default function BorrowBook() {
         <p className="text-red-500" role="alert">{errors?.quantity?.message}</p>
         )}
 
+
+
+        <label>Due Date </label>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DatePicker']}>
+        <DatePicker 
+            disablePast
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
         
 
         <div className="flex justify-end items-center">

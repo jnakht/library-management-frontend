@@ -4,6 +4,7 @@ import CreateBook from "@/module/books/CreateBookForm";
 import Home from "@/pages/Home";
 import { createBrowserRouter } from "react-router";
 import EditBook from "@/pages/EditBook";
+import BorrowBook from "@/pages/BorrowBook";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: '/edit-book/:id',
                 Component: EditBook,
+            },
+            {
+                path: '/borrow/:id',
+                Component: BorrowBook,
             }
         ]
     }

@@ -8,7 +8,7 @@ export const booksApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:8080"
     }),
-    tagTypes: ["books"],
+    tagTypes: ["books", "book", "update"],
     endpoints: (build) => ({
         getAllBooks: build.query({
             query: (prop) => `/api/books?page=${prop?.page}&limit=${prop?.limit}`,
@@ -21,8 +21,20 @@ export const booksApi = createApi({
                 body: data
             }),
             invalidatesTags: ['books']
+        }),
+        getBookById: build.query({
+            query: (id) => `/api/books/${id}`,
+            providesTags: ['book'],
+        }),
+        updateBook: build.mutation({
+            query: ({id, ...data}) => ({
+                url: `/api/books/${id}`,
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ["books", "book"]
         })
     }),
 })
 
-export const { useGetAllBooksQuery, useCreateBookMutation } = booksApi
+export const { useGetBookByIdQuery, useGetAllBooksQuery,  useCreateBookMutation, useUpdateBookMutation } = booksApi

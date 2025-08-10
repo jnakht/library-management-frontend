@@ -1,48 +1,69 @@
-import { useCreateBookMutation } from "@/redux/features/books/booksApi";
+import Loading from "@/module/loading/Loading";
+import { useGetBookByIdQuery, useUpdateBookMutation } from "@/redux/features/books/booksApi";
+import { useParams } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form"
-
-export type Inputs = {
-    title: string;
-    author: string;
-    genre: 'FICTION' | 'NON_FICTION' | 'SCIENCE'  | 'HISTORY' | 'BIOGRAPHY' | 'FANTASY';
-    isbn: string;
-    description: string;
-    copies: number;
-    available: boolean;
-}
+import type { Inputs } from "@/module/books/CreateBookForm";
+import { useEffect } from "react";
 
 
+export default function EditBook() {
 
-export default function CreateBookForm() {
-    const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-    reset,
-  } = useForm<Inputs>()
+    const {id} = useParams();
+    const { data : singleBookData, isLoading : singleBookIsLoading } = useGetBookByIdQuery(id);
 
-  const [createBook, { data, isLoading, error}] = useCreateBookMutation();
-  console.log("outside handler: ", data);
-  const onSubmit: SubmitHandler<Inputs> = async (value) => {
-    console.log(value);
-    //redux create book
-    const res = await createBook(value).unwrap();
-    console.log("inside handler: ", res);
-    reset(); // form.reset();
-  }
+    if (singleBookIsLoading) {
+        <Loading />
+    }
 
+
+     const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+        reset,
+      } = useForm<Inputs>()
+
+
+      useEffect( () => {
+        console.log("infinite reset");
+        if (singleBookData?.data) {
+            reset({
+                title: singleBookData?.data?.title,
+                author: singleBookData?.data?.author,
+                genre: singleBookData?.data?.genre,
+                isbn: singleBookData?.data?.isbn,
+                description: singleBookData?.data?.description,
+                copies: singleBookData?.data?.copies,
+                available: singleBookData?.data?.available,
+            })
+        }
+      } ,[singleBookData, reset])
+    
+      const [updateBook, { data : updatedBookData, isLoading: isUpdating}] = useUpdateBookMutation();
+      console.log("outside edit handler: ", updatedBookData);
+      const onSubmit: SubmitHandler<Inputs> = async (value) => {
+        console.log(value);
+        const draftValue = {
+            id: id,
+            ...value
+        }
+        const res = await updateBook(draftValue);
+        console.log("inside edit handler: ", res);
+        reset(); // form.reset();
+      }
 
   return (
-    <div className="max-w-[80%] mx-auto mb-20">
-      <h3 className="text-4xl mb-4">Book Information</h3>
-      <div>
+    <div>
+      <h3>Welcome to editing page</h3>
+       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-2 max-w-[50%] justify-center md:justify-start">
 
         <label>Title</label>
         <input 
         className="border-2 p-2 rounded-sm"
         placeholder="Title"
+        // defaultValue={singleBookData?.data?.title}
         {...register("title", { required: true })} />
         {errors.title && <span className="text-red-500">This field is required</span>}
 
@@ -50,6 +71,7 @@ export default function CreateBookForm() {
         <input  
         className="border-2 p-2 rounded-sm"
         placeholder="Full Name"
+        // defaultValue={singleBookData?.data?.author}
         {...register("author", { 
           required: "Author Name Is Required",
           pattern: {
@@ -62,9 +84,9 @@ export default function CreateBookForm() {
         <label>Genre</label>
         <select 
         className="border-2 p-2 rounded-sm"
-        defaultValue=""
+        // defaultValue={singleBookData?.data?.genre}
         {...register("genre", { required: "Genre Field Is Required" })}>
-        <option  value="">---Select a Genre---</option>
+        {/* <option  value="">---Select a Genre---</option> */}
         <option value="FICTION">FICTION</option>
         <option value="NON_FICTION">NON_FICTION</option>
         <option value="SCIENCE">SCIENCE</option>
@@ -78,6 +100,7 @@ export default function CreateBookForm() {
         <input 
         className="border-2 p-2 rounded-sm"
         placeholder="ISBN number"
+        // defaultValue={singleBookData?.data?.isbn}
         {...register("isbn", { required: true })} />
         {errors.isbn && <span className="text-red-500">ISBN field is required</span>}
 
@@ -85,12 +108,14 @@ export default function CreateBookForm() {
         <textarea  
         className="border-2 p-2 rounded-sm"
         placeholder="Description Of the Book"
+        // defaultValue={singleBookData?.data?.description || ""}
         {...register("description")} />
 
         <label>Copies</label>
         <input 
         className="border-2 p-2 rounded-sm"
         placeholder="Number of Books"
+        // defaultValue={singleBookData?.data?.copies}
         {...register("copies", { 
           required: true,
           valueAsNumber: true,
@@ -110,7 +135,7 @@ export default function CreateBookForm() {
 
         <label>Availability</label>
         <select 
-        defaultValue="true"
+        // defaultValue={singleBookData?.data?.available}
         className="border-2 p-2 rounded-sm"
         {...register("available", { required: "Please Select Availability" })}>
         <option value="true">Available</option>

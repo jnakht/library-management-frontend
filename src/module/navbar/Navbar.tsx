@@ -22,7 +22,6 @@ export default function Navbar() {
             <div className="text-2xl flex items-center gap-2 font-bold py-8 uppercase">
                 <IoLibrary/>
                 <p>Book</p>
-                {/* <p className="text-[#fb923c]">Ventory</p> */}
                 <p className="text-brand-primary">Ventory</p>
             </div>
             {/* desktop links */}
@@ -30,11 +29,6 @@ export default function Navbar() {
                 <ul className="flex justify-center items-center gap-6 text-gray-600">
                     {
                         NavbarMenu.map(item => 
-                            // <li>
-                            //     <a
-                                 
-                            //     href={item.link}>{item.title}</a>
-                            // </li>
                             <NavLink to={item?.link}
                             className="inline-block py-1 px-3 hover:text-brand-primary hover:underline font-semibold"
                             >{item?.title}</NavLink>

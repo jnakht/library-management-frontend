@@ -13,11 +13,9 @@ import Slide3 from './Slide3';
 
 export default function Slider() {
   return (
-    // h-[50vh] md:h-[60vh] 
     <div className='h-full w-[100vw]'>
       <Swiper
         className='max-h-[78.5vh]'
-        // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={30}
         speed={1}
@@ -29,10 +27,6 @@ export default function Slider() {
         }}
         navigation={true}
         pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
-        // className='mySwiper'
       >
         <SwiperSlide>
           <Slide1></Slide1>
@@ -44,7 +38,6 @@ export default function Slider() {
           <Slide3></Slide3>
         </SwiperSlide>
 
-        {/* ... */}
       </Swiper>
     </div>
   );

@@ -8,7 +8,7 @@ export const booksApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:8080"
     }),
-    tagTypes: ["books", "book", "update"],
+    tagTypes: ["books", "book", "update", "delete"],
     endpoints: (build) => ({
         getAllBooks: build.query({
             query: (prop) => `/api/books?page=${prop?.page}&limit=${prop?.limit}`,
@@ -49,8 +49,11 @@ export const booksApi = createApi({
                     ...data
                 }
             })
-        })
+        }),
+        borrowSummary: build.query({
+            query: () => '/api/borrow'
+        }),
     }),
 })
 
-export const { useGetBookByIdQuery, useGetAllBooksQuery,  useCreateBookMutation, useUpdateBookMutation, useDeleteBookMutation, useBorrowBookMutation } = booksApi
+export const { useGetBookByIdQuery, useGetAllBooksQuery,  useCreateBookMutation, useUpdateBookMutation, useDeleteBookMutation, useBorrowBookMutation, useBorrowSummaryQuery } = booksApi

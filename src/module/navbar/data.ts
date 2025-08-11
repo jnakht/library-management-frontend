@@ -17,7 +17,7 @@ export const NavbarMenu = [
     },
     {
         id: 4,
-        title: 'About',
-        link: '#'
+        title: 'Borrow Summary',
+        link: '/borrow-summary'
     },
 ]

@@ -12,7 +12,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* my styles */
 
+/* google fonts classes */
 .font-lora {
    font-family: "Lora", serif;
 }
@@ -23,6 +25,40 @@
   font-family: "Nunito Sans", sans-serif;
 }
 
+/* custom colors (tailwindcss)*/
+@theme {
+  --color-midnight: #121063;
+  --color-tahiti: #3ab7bf;
+  --color-bermuda: #78dcca;
+  --color-brand-primary: #DE3241;
+}
+
+
+/* swiper slider custom styling by overwriting the UI styles */
+/* deactive bullet */
+.swiper-pagination-bullet {
+  background: transparent !important;
+  opacity: 1 !important; /* make sure it's visible */
+  border-width: 2px !important;
+  border-color: white !important;
+  height: 10px !important;
+  width: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+/* Active bullet */
+.swiper-pagination-bullet-active {
+  background-color: #DE3241 !important; /* green */
+  height: 10px !important;
+  width: 10px !important;
+  border-width: 2px !important;
+  border-color: #DE3241 !important;
+}
+
+
+
+
+/* shadcn UI css codes (provides on installation) */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

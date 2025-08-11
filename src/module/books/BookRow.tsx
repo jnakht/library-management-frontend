@@ -28,6 +28,7 @@ export default function BookRow({ book }) {
                     </div>
             }</td>
             <td className="px-4 py-3 flex gap-2">
+                <Link to={`/books/${book?._id}`}><button className="text-sky-500 cursor-pointer hover:underline">View</button></Link>
                 <Link to={`/edit-book/${book?._id}`}><button className="text-green-500 cursor-pointer hover:underline">Edit</button></Link>
                 <button onClick={handleDeleteBook} className="text-red-500 cursor-pointer hover:underline">Delete</button>
                 <Link to={`/borrow/${book?._id}`}><button className="text-purple-500 cursor-pointer hover:underline">Borrow</button></Link>

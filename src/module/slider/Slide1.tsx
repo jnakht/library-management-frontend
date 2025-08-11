@@ -1,5 +1,6 @@
 
 
+
 export default function Slide1() {
   return (
     <div className="w-[100vw] h-[80vh] flex justify-center items-center bg-[url('https://i.ibb.co.com/NnyHNcKL/pexels-tima-miroshnichenko-6550399-1.jpg')] bg-cover bg-center bg-no-repeat">

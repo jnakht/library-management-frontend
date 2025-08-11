@@ -16,12 +16,15 @@ export default function Slider() {
     // h-[50vh] md:h-[60vh] 
     <div className='h-full w-[100vw]'>
       <Swiper
+        className='max-h-[78.5vh]'
         // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={30}
+        speed={1}
         slidesPerView={1}
+        loop={true}
         autoplay={{
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false
         }}
         navigation={true}

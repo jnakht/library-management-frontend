@@ -23,6 +23,9 @@ export default function FictionBooks() {
                 )
             }
       </div>
+      <div className="w-full  mx-auto flex flex-col justify-center items-center mt-10">
+        <button className="btn text-[#FFF] text-[15px] font-nunito-sans bg-[#385777] hover:bg-[#385790] font-medium uppercase rounded-full h-[50px] md:h-[60px] w-[160px] md:w-[190px] cursor-pointer">VIEW MORE BOOKS</button>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import FictionBooks from "@/module/fictionBooks/fictionBooks";
+import OurServiceSection from "@/module/globalComponents/OurServiceSection";
 import TrendingBookSection from "@/module/globalComponents/TrendingBookSection";
 import Slider from "@/module/slider/Slider";
 
@@ -9,6 +10,7 @@ export default function Home() {
       <Slider></Slider>
       <TrendingBookSection></TrendingBookSection>
       <FictionBooks></FictionBooks>
+      <OurServiceSection></OurServiceSection>
     </div>
   );
 }

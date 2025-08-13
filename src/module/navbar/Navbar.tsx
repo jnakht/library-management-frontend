@@ -44,7 +44,8 @@ export default function Navbar() {
                 <button className="text-2xl hover:bg-brand-primary hover:text-white p-2 rounded-full duration-200 md:hidden lg:block">
                     <PiShoppingCart/>
                 </button>
-                <button className="hover:bg-brand-primary text-brand-primary font-semibold hover:text-white rounded-md border-2 border-brand-primary px-6 py-2 duration-200 hidden md:block">Login</button>
+                {/* <button className="hover:bg-brand-primary text-brand-primary font-semibold hover:text-white rounded-md border-2 border-brand-primary px-6 py-2 duration-200 hidden md:block">Login</button> */}
+                <button className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] px-6 py-2 duration-200 hidden md:block">Login</button>
             </div>
             {/* mobile hamburger */}
             <div>

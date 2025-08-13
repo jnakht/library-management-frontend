@@ -1,0 +1,23 @@
+
+
+export default function SubscribeSection() {
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        console.log("Subscribe Email: ", e.target.email);
+    }
+  return (
+    <div className=" bg-brand-primary mt-25 mb-25 py-[100px]">
+      <div className="max-w-[80%] mx-auto flex flex-col md:flex-row gap-8 md:gap-0 items-center">
+        <div className="w-full">
+        <h3 className="text-white text-[36px] font-font-lora max-w-[555px]">Stay up to date with the latest from BookVentory</h3>
+      </div>
+      <div className="w-full">
+        <form onSubmit={handleSubscribe} className="relative flex justify-end items-center">
+            <input className="w-full h-[50px] rounded-full bg-white p-4 pl-8 absolute inset-0 border-none outline-none" type="email" name="email" id="" placeholder="Email *" />
+            <button className="btn text-[#FFF] text-[12px] md:text-[15px] font-nunito-sans bg-[#385777] hover:bg-[#385790] font-medium uppercase rounded-full border-2 border-white  px-3 md:px-6 py-3 duration-200 relative top-0 bottom-0 ">SUBSCRIBE</button>
+        </form>
+      </div>
+      </div>
+    </div>
+  );
+}

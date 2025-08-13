@@ -22,7 +22,7 @@ export default function Slider() {
         slidesPerView={1}
         loop={true}
         autoplay={{
-          delay: 3000,
+          delay: 6000,
           disableOnInteraction: false
         }}
         navigation={true}

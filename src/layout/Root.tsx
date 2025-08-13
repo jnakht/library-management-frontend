@@ -6,7 +6,7 @@ import { Outlet } from "react-router";
 
 export default function Root() {
   return (
-    <div>
+    <div className="bg-[#FAF8F2]">
       <div className="overflow-x-hidden">
         <Navbar></Navbar>
       </div>

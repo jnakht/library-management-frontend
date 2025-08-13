@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav>
+      <nav className="bg-[#FAF8F2]">
         <div className="container flex justify-between items-center py-8 ">
             {/* logo */}
             <div className="text-2xl flex items-center gap-2 font-bold py-8 uppercase">

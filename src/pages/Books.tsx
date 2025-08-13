@@ -67,11 +67,11 @@ export default function Books() {
   }
 
   return (
-    <div className="max-w-[80%] mx-auto">
+    <div className="max-w-[80%] mx-auto min-h-[80vh] mt-5 md:mt-10">
       {/* : Title, Author, Genre, ISBN, Copies, Availability, and Actions. */}
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-200 text-sm text-left text-gray-700">
-        <thead className="bg-[#7626FD] text-white uppercase text-xs sticky top-0">
+        <thead className="bg-[#385777] text-white uppercase text-xs sticky top-0">
           <tr>
             <th className="px-4 py-3 border-b">Title</th>
             <th className="px-4 py-3 border-b">Author</th>

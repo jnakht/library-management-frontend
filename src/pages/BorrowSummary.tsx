@@ -5,10 +5,10 @@ export default function BorrowSummary() {
     const { data, isLoading } = useBorrowSummaryQuery(undefined);
     console.log(data);
   return (
-    <div className="max-w-[80%] mx-auto">
+    <div className="max-w-[80%] mx-auto min-h-[80vh] mt-5 md:mt-10">
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-200 text-sm text-left text-gray-700">
-            <thead className="bg-[#7626FD] text-white text-xs uppercase ">
+            <thead className="bg-[#385777] text-white text-xs uppercase ">
                 <tr className="">
                     <th className="px-4 py-3 border-b">Book Title</th>
                     <th className="px-4 py-3 border-b">ISBN</th>

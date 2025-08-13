@@ -5,7 +5,7 @@ export default function BorrowSummary() {
     const { data, isLoading } = useBorrowSummaryQuery(undefined);
     console.log(data);
   return (
-    <div className="max-w-[80%] mx-auto min-h-[80vh] mt-5 md:mt-10">
+    <div className="max-w-[80%] mx-auto lg:min-h-[50vh] mt-5 md:mt-10">
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-200 text-sm text-left text-gray-700">
             <thead className="bg-[#385777] text-white text-xs uppercase ">

@@ -14,12 +14,8 @@ export default function ResponsiveLinks({open}) {
                 transition={{ duration: 0.3 }}
                 className="absolute top-20 left-0 w-full h-screen z-20"
             >
-            <div className="text-xl font-semibold uppercase bg-primary text-white py-10 m-6 rounded-3xl ">
+            <div className="text-xl font-semibold uppercase bg-gradient-to-r from-black/60 to-black/60 text-white py-10 rounded-xl mt-8 h-[50vh] flex justify-center items-center">
                 <ul className="flex flex-col justify-center items-center gap-10">
-                    {/* <li>Home</li>
-                    <li>AddBooks</li>
-                    <li>Books</li>
-                    <li>About</li> */}
                     {
                         NavbarMenu.map(item => 
                             <li>

@@ -3,6 +3,7 @@ import { IoLibrary } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { PiShoppingCart } from "react-icons/pi";
 import { MdMenu } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import { useState } from "react";
 import ResponsiveLinks from "./ResponsiveLinks";
 import './styles.css'
@@ -52,7 +53,11 @@ export default function Navbar() {
                 <button onClick={ () => 
                     setOpen(!open)
                 } className="md:hidden">
-                    <MdMenu className="text-4xl"/>
+                    {open ? 
+                      <MdClose className="text-4xl"/>
+                      :
+                      <MdMenu className="text-4xl"/>
+                    }
                 </button>
             </div>
         </div>

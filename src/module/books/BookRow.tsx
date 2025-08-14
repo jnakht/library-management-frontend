@@ -1,6 +1,7 @@
 import { useDeleteBookMutation } from "@/redux/features/books/booksApi";
 import type { TBook } from "@/types";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
 
 
@@ -23,9 +24,10 @@ export default function BookRow({ book } : { book: TBook}) {
             console.log("this is delete response: ", res);
             Swal.fire({
                 title: "Deleted!",
-                text: "Your file has been deleted.",
+                text: "The book has been deleted.",
                 icon: "success"
             });
+            toast.success("Book Deleted!")
         } catch (error) {
             console.log(error);
         }

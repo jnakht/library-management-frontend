@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Dayjs } from "dayjs";
+import  dayjs, { Dayjs } from "dayjs";
 import * as React from 'react';
 import { useNavigate, useParams } from "react-router";
 import { useBorrowBookMutation } from "@/redux/features/books/booksApi";
+import { toast, ToastContainer } from "react-toastify";
 
 
 type Inputs = {
@@ -26,7 +27,7 @@ export default function BorrowBook() {
  
     const [value, setValue] = React.useState<Dayjs | null>(null);
     const [serverError, setServerError] = useState(null);
-    console.log("this is server error : ", serverError);
+    const [pastError, setPastError] = useState<string | null>(null);
 
     const {
         register,
@@ -40,6 +41,14 @@ export default function BorrowBook() {
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
+            if (!value) {
+                setPastError("This field is required");
+                return;
+            }
+            if (value?.isBefore(dayjs(), "date")) {
+                setPastError("Due Date cannot be in the past");
+                return;
+            }
             const isoString = value?.toISOString();
             //redux create book
             const reqObject : IReqObject = {
@@ -48,20 +57,26 @@ export default function BorrowBook() {
                 dueDate: isoString || "",
             }
             const res = await borrowBook(reqObject);
+            
             if (res?.error) {
                 setServerError(res?.error?.data?.message);
+                return;
             }
-            console.log("this is response of borrow book: ", res);
+            // console.log("this is response of borrow book: ", res);
             reset(); 
             setValue(null);
+            setServerError(null);
+            setPastError(null);
         } catch (error) {
-            console.log("this is server error: ", error);
+            // console.log("this is server error: ", error);
+            toast.error("error");
             setServerError(error);
         }
     }
     const navigate = useNavigate()
     useEffect( () => {
         if (isSuccess) {
+            toast.success("Book Borrow Successful");
             navigate('/borrow-summary');
         }
     },[isSuccess])
@@ -108,12 +123,14 @@ export default function BorrowBook() {
                     </LocalizationProvider>
                     
                     <p className="text-red-500">{serverError ? serverError : ''}</p>
+                    <p className="text-red-500">{pastError ? pastError : ''}</p>
 
                     <div className="flex justify-end items-center">
                         <button className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] px-6 py-2 duration-200 hidden md:block"><input type="submit" /></button>
                     </div>
                 </form>
             </div>
+            {/* <ToastContainer/> */}
         </div>
     );
 }

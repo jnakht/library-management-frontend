@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 type Inputs = {
     email: string,
@@ -15,6 +15,9 @@ export default function SubscribeSection() {
     } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         // console.log("Email: ", data);
+        if (data?.email) {
+          toast.success("Subscribed!");
+        }
         reset();
     }
   return (
@@ -28,6 +31,7 @@ export default function SubscribeSection() {
             <input { ...register("email")} className="w-full h-[50px] rounded-full bg-white p-4 pl-8 absolute inset-0 border-none outline-none" type="email" name="email" id="" placeholder="Email *" />
             <button className="btn text-[#FFF] text-[12px] md:text-[15px] font-nunito-sans bg-[#385777] hover:bg-[#385790] font-medium uppercase rounded-full border-2 border-white  px-3 md:px-6 py-3 duration-200 relative top-0 bottom-0 cursor-pointer">SUBSCRIBE</button>
         </form>
+          <ToastContainer />
       </div>
       </div>
     </div>

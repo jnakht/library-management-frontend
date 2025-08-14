@@ -13,10 +13,7 @@ export default function ViewBook() {
   
 
   const {id} = useParams();
-  // console.log("this book is to view full: ", id);
   const { data , isLoading } = useGetBookByIdQuery(id);
-  // console.log("this is the full book: ", data);
-
 
   const {
     register,
@@ -35,7 +32,7 @@ export default function ViewBook() {
   }
   return (
     <div className="w-[80%] mx-auto">
-        {/* if image, then make a div here */}
+        {/* if contains image, then make a div here */}
         {/* contents */}
         <div>
           <h3 className="text-[40px] font-font-playfair-display text-[#121212] mb-2 md:mb-4">{data?.data?.title}</h3>
@@ -77,7 +74,7 @@ export default function ViewBook() {
             </button>
            
             </form>
-             {errors.quantity && <span className="text-red-500">This field is required</span>}
+             {errors?.quantity && <span className="text-red-500">This field is required</span>}
           </div>
         </div>
     </div>

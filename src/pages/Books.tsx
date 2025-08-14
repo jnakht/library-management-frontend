@@ -10,25 +10,12 @@ import BookRow from "@/module/books/BookRow";
 
 export default function Books() {
 
-
-  // redux 
   const { page, pageCount, rowsPerPage, totalData} = useAppSelector((state) => state.pagination);
-  // console.log("pagination: ");
   const dispatch = useAppDispatch();
-
-
-  //old style
-  // const [page, setPage] = useState(0);
-  // const [pageCount, setPageCount] = useState(1);
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [totalData, setTotalData] = useState(100);
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    // setRowsPerPage(parseInt(event.target.value, 10));
-    // setPage(0);
-
     //redux
     dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
     dispatch(setPage(0));
@@ -38,9 +25,6 @@ export default function Books() {
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
-    // setPage(newPage);
-
-    // redux 
     dispatch(setPage(newPage));
   };
 
@@ -57,7 +41,6 @@ export default function Books() {
 
 
   if (data) {
-    // setTotalData(data?.total);
     dispatch(setTotalData(data?.total))
   }
 

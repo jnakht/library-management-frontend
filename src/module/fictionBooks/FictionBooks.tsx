@@ -7,7 +7,6 @@ import BookCard from "../globalComponents/BookCard";
 export default function FictionBooks() {
 
     const fictions = useAppSelector(getFictionBooks);
-    console.log("THis is fictions: ", fictions);
   return (
     <div className="max-w-[80%] mx-auto">
       <SectionHeader 

@@ -1,6 +1,7 @@
+import type { TAuthor } from "@/types";
 
 
-export default function AuthorCard({author}) {
+export default function AuthorCard({author} : { author: TAuthor }) {
   return (
     <div className="h-full w-full">
         {/* h-[380px] w-[292px] */}

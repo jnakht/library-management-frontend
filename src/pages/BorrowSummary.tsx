@@ -1,9 +1,13 @@
+import Loading from "@/module/loading/Loading";
 import { useBorrowSummaryQuery } from "@/redux/features/books/booksApi";
 
 export default function BorrowSummary() {
 
     const { data, isLoading } = useBorrowSummaryQuery(undefined);
-    console.log(data);
+    // console.log(data);
+    if (isLoading) {
+      <Loading></Loading>
+    }
   return (
     <div className="max-w-[80%] mx-auto lg:min-h-[50vh] mt-5 md:mt-10">
       <div className="overflow-x-auto">

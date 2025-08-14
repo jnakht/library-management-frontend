@@ -12,7 +12,7 @@ export default function SubscribeSection() {
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm();
+    } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         // console.log("Email: ", data);
         reset();

@@ -1,7 +1,7 @@
+import type { TFictionBook } from "@/types";
 
 
-export default function BookCard({book}) {
-    console.log("this is book card: ", book);
+export default function BookCard({book} : { book : TFictionBook} ) {
   return (
     <div className="flex flex-col justify-center items-center gap-2 min-h-max cursor-pointer">
         {/* card image */}

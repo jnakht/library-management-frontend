@@ -1,16 +1,9 @@
-import { getFictionBooks } from "@/redux/features/books/fictionSlice";
-import { useAppSelector } from "@/redux/hooks";
 import SectionHeader from "../globalComponents/SectionHeader";
-import BookCard from "../globalComponents/BookCard";
 import { authors } from "@/assets/authors/authors";
 import AuthorCard from "./AuthorCard";
 
 
 export default function AuthorsSection() {
-
-    // const fictions = useAppSelector(getFictionBooks);
-    // const trendingBooks = fictions?.slice(6, 12);
-    // // console.log("THis is fictions: ", fictions);
   return (
     <div className="max-w-[80%] mx-auto">
       <SectionHeader 

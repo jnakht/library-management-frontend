@@ -27,11 +27,10 @@ export default function CreateBookForm() {
   const [createBook, { data, isLoading, error, isSuccess }] = useCreateBookMutation();
   console.log("outside handler: ", data);
   const onSubmit: SubmitHandler<Inputs> = async (value) => {
-    console.log(value);
     //redux create book
     const res = await createBook(value).unwrap();
     console.log("inside handler: ", res);
-    reset(); // form.reset();
+    reset();
   }
 
   const navigate = useNavigate();
@@ -52,7 +51,7 @@ export default function CreateBookForm() {
         className="border-2 p-2 rounded-sm"
         placeholder="Title"
         {...register("title", { required: true })} />
-        {errors.title && <span className="text-red-500">This field is required</span>}
+        {errors?.title && <span className="text-red-500">This field is required</span>}
 
         <label>Author</label>
         <input  
@@ -65,7 +64,7 @@ export default function CreateBookForm() {
             message: "Author Name Can Only Contain Letters and Spaces, Accented Letters, Apostrophes ', Hyphens -; Name Must Contain At Least One Letter"
           } 
         })} />
-        {errors.author && <span className="text-red-500">{errors.author?.message}</span>}
+        {errors?.author && <span className="text-red-500">{errors.author?.message}</span>}
 
         <label>Genre</label>
         <select 
@@ -80,14 +79,14 @@ export default function CreateBookForm() {
         <option value="BIOGRAPHY">BIOGRAPHY</option>
         <option value="FANTASY">FANTASY</option>
         </select>
-        {errors.genre && <span className="text-red-500">{errors.genre.message}</span>}
+        {errors?.genre && <span className="text-red-500">{errors.genre?.message}</span>}
 
         <label>isbn</label>
         <input 
         className="border-2 p-2 rounded-sm"
         placeholder="ISBN number"
         {...register("isbn", { required: true })} />
-        {errors.isbn && <span className="text-red-500">ISBN field is required</span>}
+        {errors?.isbn && <span className="text-red-500">ISBN field is required</span>}
 
         <label>Description</label>
         <textarea  
@@ -108,8 +107,8 @@ export default function CreateBookForm() {
              Number.isInteger(v) || "Copies Must Be an Integer"
             }
          })} />
-        {errors.copies?.type === 'required' && <span className="text-red-500">This field is required</span>}
-        {errors.copies?.type === "min" && (
+        {errors?.copies?.type === 'required' && <span className="text-red-500">This field is required</span>}
+        {errors?.copies?.type === "min" && (
         <p className="text-red-500" role="alert">Copies Must Be a Positive Integer</p>
         )}
         {errors?.copies && (

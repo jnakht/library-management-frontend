@@ -1,5 +1,6 @@
 
 
+import { type IPaginationRes, type IPaginationReq, type ISingleBookRes, type ICreateBookReq, type IUpdateRes, type IUpdateReq, type IDeleteBookRes, type BorrowRes, type BorrowReq, type BorrowSummaryRes } from '@/types'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
@@ -10,11 +11,11 @@ export const booksApi = createApi({
     }),
     tagTypes: ["books", "book", "update", "delete"],
     endpoints: (build) => ({
-        getAllBooks: build.query({
+        getAllBooks: build.query<IPaginationRes, IPaginationReq>({
             query: (prop) => `/api/books?page=${prop?.page}&limit=${prop?.limit}`,
             providesTags: ['books'],
         }),
-        createBook: build.mutation({
+        createBook: build.mutation<ISingleBookRes, ICreateBookReq>({
             query: (data) => ({
                 url: '/api/books',
                 method: 'POST',
@@ -22,26 +23,26 @@ export const booksApi = createApi({
             }),
             invalidatesTags: ['books']
         }),
-        getBookById: build.query({
+        getBookById: build.query<ISingleBookRes, string>({
             query: (id) => `/api/books/${id}`,
             providesTags: ['book'],
         }),
-        updateBook: build.mutation({
-            query: ({id, ...data}) => ({
-                url: `/api/books/${id}`,
+        updateBook: build.mutation<IUpdateRes, IUpdateReq>({
+            query: ({_id, ...data}) => ({
+                url: `/api/books/${_id}`,
                 method: 'PUT',
                 body: data
             }),
             invalidatesTags: ["books", "book"]
         }),
-        deleteBook: build.mutation({
+        deleteBook: build.mutation<IDeleteBookRes, string>({
             query: (id) => ({
                 url: `/api/books/${id}`,
                 method: "DELETE"
             }),
             invalidatesTags: ["book", "books"]
         }),
-        borrowBook: build.mutation({
+        borrowBook: build.mutation<BorrowRes, BorrowReq>({
             query: (data) => ({
                 url: '/api/borrow',
                 method: 'POST',
@@ -50,7 +51,7 @@ export const booksApi = createApi({
                 }
             })
         }),
-        borrowSummary: build.query({
+        borrowSummary: build.query<BorrowSummaryRes, void>({
             query: () => '/api/borrow'
         }),
     }),

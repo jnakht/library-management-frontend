@@ -1,10 +1,10 @@
 import { useDeleteBookMutation } from "@/redux/features/books/booksApi";
+import type { TBook } from "@/types";
 import { Link } from "react-router";
 import Swal from 'sweetalert2'
 
 
-export default function BookRow({ book }) {
-    // console.log("this is the book for each row: ", book);
+export default function BookRow({ book } : { book: TBook}) {
 
     const [deleteBook, { data, isLoading, error }] = useDeleteBookMutation();
     const handleDeleteBook = async () => {
@@ -35,11 +35,11 @@ export default function BookRow({ book }) {
    
     return (
         <tr key={book._id} className="border-b hover:bg-gray-50">
-            <td className="px-4 py-3">{book.title}</td>
-            <td className="px-4 py-3">{book.author}</td>
-            <td className="px-4 py-3">{book.genre}</td>
-            <td className="px-4 py-3">{book.isbn}</td>
-            <td className="px-4 py-3">{book.copies}</td>
+            <td className="px-4 py-3">{book?.title}</td>
+            <td className="px-4 py-3">{book?.author}</td>
+            <td className="px-4 py-3">{book?.genre}</td>
+            <td className="px-4 py-3">{book?.isbn}</td>
+            <td className="px-4 py-3">{book?.copies}</td>
             <td className="px-4 py-3">{
                 book?.available ? <div className="flex items-center gap-2">
                     <div className="rounded-full size-3 bg-green-500"></div> <span>available</span>

@@ -1,14 +1,9 @@
-import { getFictionBooks } from "@/redux/features/books/fictionSlice";
-import { useAppSelector } from "@/redux/hooks";
 import SectionHeader from "../globalComponents/SectionHeader";
 import { services } from "@/assets/services/services";
 import ServiceCard from "./ServiceCard";
 
 export default function OurServiceSection() {
 
-    // const fictions = useAppSelector(getFictionBooks);
-    // const trendingBooks = fictions?.slice(6, 12);
-    // console.log("THis is fictions: ", fictions);
   return (
     <div className="max-w-[80%] mx-auto  mb-20">
       <SectionHeader 

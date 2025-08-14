@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form"
 import type { Inputs } from "@/module/books/CreateBookForm";
 import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import Updating from "@/module/loading/Updating";
 
 
 export default function EditBook() {
@@ -25,7 +27,7 @@ export default function EditBook() {
 
 
       useEffect( () => {
-        console.log("infinite reset");
+        // console.log("infinite reset");
         if (singleBookData?.data) {
             reset({
                 title: singleBookData?.data?.title,
@@ -39,17 +41,26 @@ export default function EditBook() {
         }
       } ,[singleBookData, reset])
     
-      const [updateBook, { data : updatedBookData, isLoading: isUpdating}] = useUpdateBookMutation();
-      console.log("outside edit handler: ", updatedBookData);
+      const [updateBook, { data : updatedBookData, isLoading: isUpdating, isSuccess : updateSuccess, isError : updateError}] = useUpdateBookMutation();
       const onSubmit: SubmitHandler<Inputs> = async (value) => {
-        console.log(value);
+        // console.log(value);
         const draftValue = {
             _id: id || "",
             ...value
         }
-        const res = await updateBook(draftValue);
-        console.log("inside edit handler: ", res);
-        reset(); 
+        // reset();
+        try {
+          const res = await updateBook(draftValue).unwrap();
+          toast.success("Book Updated Successfully");
+          reset(res?.data); 
+        } catch (error) {
+          console.log("This is the error", error);
+          toast.error(error?.error ? `${error?.error}` : 'Error Occurred!');
+        }
+      }
+
+      if (isUpdating) {
+        <Updating/>
       }
 
   return (
@@ -143,6 +154,7 @@ export default function EditBook() {
         </div>
 
       </form>
+      <ToastContainer/>
       </div>
     </div>
   );

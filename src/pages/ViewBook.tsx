@@ -2,6 +2,7 @@ import Loading from "@/module/loading/Loading";
 import { useGetBookByIdQuery } from "@/redux/features/books/booksApi";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
 
 
 type Inputs = {
@@ -23,7 +24,10 @@ export default function ViewBook() {
     reset,
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    // console.log(data);
+    if (data.quantity > 0) {
+      toast.success("Added To Cart");
+    }
     reset();
   }
 
@@ -61,7 +65,7 @@ export default function ViewBook() {
           <div className="flex flex-col  mt-8 mb-8">
             <form onSubmit={handleSubmit(onSubmit)} className="flex gap-3">
               <input 
-                {...register("quantity", {required: true})} 
+                {...register("quantity", {required: true, min: 1})} 
                 className="py-4 w-[100px] pl-2 bg-white text-[17px] font-semibold text-[#121212] border outline-none" type="number"
                 name="quantity" 
                 min="0" 
@@ -70,11 +74,13 @@ export default function ViewBook() {
               />
               
             <button 
-              className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] w-[200px] py-4 duration-200">BUY NOW
+              className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] w-[200px] py-4 duration-200">ADD TO CART
             </button>
            
             </form>
-             {errors?.quantity && <span className="text-red-500">This field is required</span>}
+             {errors?.quantity?.type==='required' && <span className="text-red-500">This field is required</span>}
+             {errors?.quantity?.type==='min' && <span className="text-red-500">Min Quantity Should Be 1</span>}
+             <ToastContainer/>
           </div>
         </div>
     </div>

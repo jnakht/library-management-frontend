@@ -1,17 +1,38 @@
 import { useDeleteBookMutation } from "@/redux/features/books/booksApi";
 import { Link } from "react-router";
-
+import Swal from 'sweetalert2'
 
 
 export default function BookRow({ book }) {
     // console.log("this is the book for each row: ", book);
 
-    const [deleteBook, { data, isLoading, error}] = useDeleteBookMutation();
+    const [deleteBook, { data, isLoading, error }] = useDeleteBookMutation();
     const handleDeleteBook = async () => {
-        const res = await deleteBook(book._id);
-        console.log("this is delete response: ", res);
+     const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    })
+    if (result.isConfirmed) {
+        try {
+            const res = await deleteBook(book._id);
+            console.log("this is delete response: ", res);
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
-
+    
+    }
+   
     return (
         <tr key={book._id} className="border-b hover:bg-gray-50">
             <td className="px-4 py-3">{book.title}</td>

@@ -73,7 +73,7 @@ export default function ViewBook() {
               />
               
             <button 
-              className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] w-[200px] py-4 duration-200"><input type="submit" />
+              className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] w-[200px] py-4 duration-200">BUY NOW
             </button>
            
             </form>

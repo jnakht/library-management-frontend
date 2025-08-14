@@ -19,7 +19,7 @@ export default function Navbar() {
       <nav className="bg-[#FAF8F2]">
         <div className="container flex justify-between items-center py-8 ">
             {/* logo */}
-            <div className="text-2xl flex items-center gap-2 font-bold py-8 uppercase">
+            <div className="text-xl md:text-2xl flex items-center gap-2 font-bold py-8 uppercase">
                 <IoLibrary/>
                 <p>Book</p>
                 <p className="text-brand-primary">Ventory</p>

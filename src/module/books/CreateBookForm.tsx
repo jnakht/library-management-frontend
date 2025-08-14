@@ -1,5 +1,7 @@
 import { useCreateBookMutation } from "@/redux/features/books/booksApi";
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form"
+import { useNavigate } from "react-router";
 
 export type Inputs = {
     title: string;
@@ -22,7 +24,7 @@ export default function CreateBookForm() {
     reset,
   } = useForm<Inputs>()
 
-  const [createBook, { data, isLoading, error}] = useCreateBookMutation();
+  const [createBook, { data, isLoading, error, isSuccess }] = useCreateBookMutation();
   console.log("outside handler: ", data);
   const onSubmit: SubmitHandler<Inputs> = async (value) => {
     console.log(value);
@@ -32,6 +34,12 @@ export default function CreateBookForm() {
     reset(); // form.reset();
   }
 
+  const navigate = useNavigate();
+  useEffect( () => {
+    if (isSuccess) {
+      navigate('/books');
+    }
+  },[isSuccess])
 
   return (
     <div className="max-w-[80%] mx-auto mb-20">

@@ -1,7 +1,7 @@
 import { addDays } from "date-fns";
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -9,7 +9,7 @@ import dayjs, { Dayjs } from "dayjs";
 import * as React from 'react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { TextField } from '@mui/material';
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useBorrowBookMutation } from "@/redux/features/books/booksApi";
 
 
@@ -35,7 +35,7 @@ export default function BorrowBook() {
         reset,
     } = useForm<Inputs>()
 
-    const [borrowBook, { isLoading, data }] = useBorrowBookMutation();
+    const [borrowBook, { isLoading, data, isSuccess }] = useBorrowBookMutation();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
@@ -59,7 +59,12 @@ export default function BorrowBook() {
             setServerError(error);
         }
     }
-
+    const navigate = useNavigate()
+    useEffect( () => {
+        if (isSuccess) {
+            navigate('/borrow-summary');
+        }
+    },[isSuccess])
 
     return (
         <div className="max-w-[80%] mx-auto mb-20">

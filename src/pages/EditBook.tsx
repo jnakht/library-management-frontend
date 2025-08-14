@@ -55,10 +55,9 @@ export default function EditBook() {
 
   return (
     <div className="max-w-[80%] mx-auto mb-20">
-      <h3 className="text-4xl mb-4">Update Book</h3>
+      <h3 className="text-4xl mb-4 w-full md:w-[50%] mx-auto">Update Book</h3>
        <div>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-2 max-w-[50%] justify-center md:justify-start">
-
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-2 w-full md:w-[50%] mx-auto justify-center md:justify-start">
         <label>Title</label>
         <input 
         className="border-2 p-2 rounded-sm"
@@ -143,7 +142,7 @@ export default function EditBook() {
         </select>
 
         <div className="flex justify-end items-center">
-            <button className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] px-6 py-2 duration-200 hidden md:block"><input type="submit" /></button>
+            <button className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] px-6 py-2 duration-200">Update</button>
         </div>
 
       </form>

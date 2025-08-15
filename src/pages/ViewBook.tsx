@@ -1,5 +1,6 @@
 import Loading from "@/module/loading/Loading";
 import { useGetBookByIdQuery } from "@/redux/features/books/booksApi";
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
@@ -14,7 +15,7 @@ export default function ViewBook() {
   
 
   const {id} = useParams();
-  const { data , isLoading } = useGetBookByIdQuery(id, {
+  const { data , isLoading, isError } = useGetBookByIdQuery(id, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -36,8 +37,14 @@ export default function ViewBook() {
     reset();
   }
 
+  useEffect( () => {
+    if (isError) {
+      toast.error("Error Occurred!");
+    }
+  },[isError])
+
   if (isLoading) {
-    <Loading></Loading>
+    return <Loading></Loading>;
   }
   return (
     <div className="w-[80%] mx-auto">
@@ -47,7 +54,7 @@ export default function ViewBook() {
           <h3 className="text-[40px] font-font-playfair-display text-[#121212] mb-2 md:mb-4">{data?.data?.title}</h3>
           <p className="text-[16px] text-brand-primary mb-4"><span className=" text-[#797979]">Author:</span> {data?.data?.author}</p>
           
-            <p className={`data?.data?.available ? text-green-500 : text-brand-primary]`}>{data?.data?.available ? "available" : "unavailable"}</p>
+            <p className={data?.data?.available ? "text-green-500" : "text-brand-primary"}>{data?.data?.available ? "available" : "unavailable"}</p>
           
           <p className="text-[#797979] text-[18px] mt-8 mb-6">{data?.data?.description}</p>
 

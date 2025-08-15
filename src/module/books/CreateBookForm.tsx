@@ -29,9 +29,15 @@ export default function CreateBookForm() {
   console.log("outside handler: ", data);
   const onSubmit: SubmitHandler<Inputs> = async (value) => {
     //redux create book
-    const res = await createBook(value).unwrap();
-    console.log("inside handler: ", res);
-    reset();
+    try {
+      const res = await createBook(value).unwrap();
+      if (res?.error) {
+        toast.error("Error Occurred!");
+      }
+      reset();
+    } catch (error) {
+      toast.error("Error Occured!");
+    }
   }
 
   const navigate = useNavigate();

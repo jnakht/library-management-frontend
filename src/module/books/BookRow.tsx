@@ -1,5 +1,6 @@
 import { useDeleteBookMutation } from "@/redux/features/books/booksApi";
 import type { TBook } from "@/types";
+import { useEffect } from "react";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
@@ -7,7 +8,7 @@ import Swal from 'sweetalert2'
 
 export default function BookRow({ book } : { book: TBook}) {
 
-    const [deleteBook, { data, isLoading, error }] = useDeleteBookMutation();
+    const [deleteBook, { data, isLoading, error, isSuccess, isError }] = useDeleteBookMutation();
     const handleDeleteBook = async () => {
      const result = await Swal.fire({
         title: "Are you sure?",
@@ -21,19 +22,32 @@ export default function BookRow({ book } : { book: TBook}) {
     if (result.isConfirmed) {
         try {
             const res = await deleteBook(book._id);
-            console.log("this is delete response: ", res);
+            if (res?.error) {
+                toast.error("Error Occurred!");
+            }
+            // console.log("this is delete response: ", res);
             Swal.fire({
                 title: "Deleted!",
                 text: "The book has been deleted.",
                 icon: "success"
             });
-            toast.success("Book Deleted!")
         } catch (error) {
-            console.log(error);
+            // console.log(error);
+            toast.error("Error Occured!");
         }
     }
     
     }
+
+    useEffect( () => {
+        if (isSuccess) {
+            toast.success("Book Deleted!");
+        }
+        if (isError) {
+            console.log(error);
+            toast.error("Error Occurred!");
+        }
+    },[isSuccess, isError])
    
     return (
         <tr key={book._id} className="border-b hover:bg-gray-50">

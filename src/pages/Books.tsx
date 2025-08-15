@@ -1,11 +1,12 @@
 import Loading from "@/module/loading/Loading";
 import { useGetAllBooksQuery } from "@/redux/features/books/booksApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TablePagination from '@mui/material/TablePagination';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setPage, setRowsPerPage, setTotalData } from "@/redux/features/books/paginationSlice";
 import { cn } from "@/lib/utils";
 import BookRow from "@/module/books/BookRow";
+import { toast } from "react-toastify";
 
 
 export default function Books() {
@@ -32,13 +33,20 @@ export default function Books() {
       page: page + 1,
       limit: rowsPerPage,
   }
-  const { data, error, isLoading } = useGetAllBooksQuery(prop, {
+  
+    const { data, isLoading, isError } = useGetAllBooksQuery(prop, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
-
+  
+  
+  useEffect( () => {
+    if (isError) {
+      toast.error("Error Occurred!");
+    }
+  }, [isError])
 
   if (data) {
     dispatch(setTotalData(data?.total))
@@ -68,7 +76,7 @@ export default function Books() {
         <tbody>
           {
             data?.data?.map(book =>
-              <BookRow book={book}/>
+              <BookRow key={book?._id} book={book}/>
             )
           }
         </tbody>

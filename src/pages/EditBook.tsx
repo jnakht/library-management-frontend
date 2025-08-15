@@ -11,7 +11,7 @@ import Updating from "@/module/loading/Updating";
 export default function EditBook() {
 
     const {id} = useParams();
-    const { data : singleBookData, isLoading : singleBookIsLoading } = useGetBookByIdQuery(id, {
+    const { data : singleBookData, isLoading : singleBookIsLoading, isError: isErrorFetching } = useGetBookByIdQuery(id, {
       // pollingInterval: 60000,
       refetchOnFocus: false,
       refetchOnMountOrArgChange: true,
@@ -19,7 +19,7 @@ export default function EditBook() {
     });
 
     if (singleBookIsLoading) {
-        <Loading />
+       return <Loading />
     }
 
      const {
@@ -46,7 +46,7 @@ export default function EditBook() {
         }
       } ,[singleBookData, reset])
     
-      const [updateBook, { data : updatedBookData, isLoading: isUpdating, isSuccess : updateSuccess, isError : updateError}] = useUpdateBookMutation();
+      const [updateBook, { data : updatedBookData, isLoading: isUpdating, isSuccess : updateSuccess, isError : isUpdateError}] = useUpdateBookMutation();
       const onSubmit: SubmitHandler<Inputs> = async (value) => {
         // console.log(value);
         const draftValue = {
@@ -64,8 +64,14 @@ export default function EditBook() {
         }
       }
 
+      useEffect( () => {
+        if (isErrorFetching || isUpdateError) {
+          toast.error("Error Occurred!");
+        }
+      } ,[isErrorFetching, isUpdateError])
+
       if (isUpdating) {
-        <Updating/>
+        return <Updating/>
       }
 
   return (

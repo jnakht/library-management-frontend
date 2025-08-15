@@ -37,7 +37,7 @@ export default function BorrowBook() {
         reset,
     } = useForm<Inputs>()
 
-    const [borrowBook, { isLoading, data, isSuccess }] = useBorrowBookMutation();
+    const [borrowBook, { isLoading, data, isSuccess, isError }] = useBorrowBookMutation();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
@@ -79,7 +79,10 @@ export default function BorrowBook() {
             toast.success("Book Borrow Successful");
             navigate('/borrow-summary');
         }
-    },[isSuccess])
+        if (isError) {
+            toast.error("Error Occurred!");
+        }
+    },[isSuccess, isError])
 
     return (
         <div className="max-w-[80%] mx-auto mb-20">

@@ -3,6 +3,8 @@ import { useBorrowSummaryQuery } from "@/redux/features/books/booksApi";
 import { setPage, setRowsPerPage, setTotalData } from "@/redux/features/borrows/borrowPaginationSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import TablePagination from "@mui/material/TablePagination";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function BorrowSummary() {
 
@@ -29,12 +31,18 @@ export default function BorrowSummary() {
       limit: rowsPerPage,
   }
 
-    const { data, isLoading, error } = useBorrowSummaryQuery(prop, {
+    const { data, isLoading, error, isError } = useBorrowSummaryQuery(prop, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
+
+  useEffect( () => {
+    if (isError) {
+      toast.error("Error Occurred!");
+    }
+  },[isError])
 
   if (data) {
     dispatch(setTotalData(data?.total))
@@ -42,7 +50,7 @@ export default function BorrowSummary() {
 
     // console.log(data);
     if (isLoading) {
-      <Loading></Loading>
+     return <Loading></Loading>
     }
   return (
     <div className="max-w-[80%] mx-auto lg:min-h-[50vh] mt-5 md:mt-10">

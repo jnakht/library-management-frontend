@@ -31,12 +31,13 @@ export default function CreateBookForm() {
     //redux create book
     try {
       const res = await createBook(value).unwrap();
-      if (res?.error) {
-        toast.error("Error Occurred!");
-      }
+      console.log("this is response on create Book : ", res);
       reset();
-    } catch (error) {
-      toast.error("Error Occured!");
+    } catch (error : any) {
+      // console.log("This is error on creating book: ", error);
+      const field = error?.data?.error?.errors ? Object.keys(error?.data?.error?.errors)[0] : null;
+      const errorMsg = error?.data?.error?.errors?.[field]?.message ||  "Error Occurred!";
+      toast.error(errorMsg);
     }
   }
 
@@ -46,10 +47,7 @@ export default function CreateBookForm() {
       toast.success("Book Created Successfully");
       navigate('/books');
     }
-    if (error) {
-        toast.error(error);
-    }
-  },[isSuccess, isError])
+  },[isSuccess])
 
   return (
     <div className="max-w-[80%] mx-auto mb-20">

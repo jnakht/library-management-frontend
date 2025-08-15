@@ -23,6 +23,15 @@ export interface IPaginationRes {
     totalPages: number;
 }
 
+// export interface IPaginationRes {
+//     success: boolean;
+//     message: string;
+//     data: TBook[];
+//     total: number;
+//     page: number;
+//     totalPages: number;
+// }
+
 export interface IPaginationReq {
     page: number;
     limit: number;
@@ -88,6 +97,11 @@ export interface BorrowRes {
     data: TBorrow;
 }
 
+export interface BorrowSummaryReq {
+    page: number;
+    limit: number;
+}
+
 export type TBorrowBook = {
     title?: string;
     isbn?: string;
@@ -101,7 +115,10 @@ export type TBorrowSummaryItem = {
 export interface BorrowSummaryRes {
     success: boolean;
     message: string;
-    data: TBorrowSummaryItem[]
+    data: TBorrowSummaryItem[];
+    total: number;
+    page: number;
+    totalPages: number;
 }
 
 export type TFictionBook = {

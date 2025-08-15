@@ -23,7 +23,7 @@ interface IReqObject  {
  }
 
 export default function BorrowBook() {
-    const { id } = useParams();
+    const { bookId } = useParams();
  
     const [value, setValue] = React.useState<Dayjs | null>(null);
     const [serverError, setServerError] = useState(null);
@@ -52,7 +52,7 @@ export default function BorrowBook() {
             const isoString = value?.toISOString();
             //redux create book
             const reqObject : IReqObject = {
-                book: id || "",
+                book: bookId || "",
                 quantity: data?.quantity || 0,
                 dueDate: isoString || "",
             }

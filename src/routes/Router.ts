@@ -31,7 +31,7 @@ const router = createBrowserRouter([
                 Component: EditBook,
             },
             {
-                path: '/borrow/:id',
+                path: '/borrow/:bookId',
                 Component: BorrowBook,
             },
             {

@@ -1,9 +1,45 @@
 import Loading from "@/module/loading/Loading";
 import { useBorrowSummaryQuery } from "@/redux/features/books/booksApi";
+import { setPage, setRowsPerPage, setTotalData } from "@/redux/features/borrows/borrowPaginationSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import TablePagination from "@mui/material/TablePagination";
 
 export default function BorrowSummary() {
 
-    const { data, isLoading } = useBorrowSummaryQuery(undefined);
+    const { page, pageCount, rowsPerPage, totalData } = useAppSelector((state) => state.borrowPagination);
+    const dispatch = useAppDispatch();
+
+    const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    //redux
+    dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
+    dispatch(setPage(0));
+  };
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    dispatch(setPage(newPage));
+  };
+
+  const prop = {
+      page: page + 1,
+      limit: rowsPerPage,
+  }
+
+    const { data, isLoading, error } = useBorrowSummaryQuery(prop, {
+    // pollingInterval: 3000,
+    // refetchOnFocus: true,
+    // refetchOnMountOrArgChange: true,
+    // refetchOnReconnect: true,
+  });
+
+  if (data) {
+    dispatch(setTotalData(data?.total))
+  }
+
     // console.log(data);
     if (isLoading) {
       <Loading></Loading>
@@ -33,6 +69,16 @@ export default function BorrowSummary() {
             </tbody>
         </table>
       </div>
+
+
+      <TablePagination
+        component="div"
+        count={totalData}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 }

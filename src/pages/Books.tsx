@@ -44,7 +44,7 @@ export default function Books() {
     dispatch(setTotalData(data?.total))
   }
 
-  console.log({ data });
+  // console.log({ data });
   if (isLoading) {
     return <Loading />
   }

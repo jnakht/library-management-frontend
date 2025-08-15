@@ -1,6 +1,6 @@
 
 
-import { type IPaginationRes, type IPaginationReq, type ISingleBookRes, type ICreateBookReq, type IUpdateRes, type IUpdateReq, type IDeleteBookRes, type BorrowRes, type BorrowReq, type BorrowSummaryRes } from '@/types'
+import { type IPaginationRes, type IPaginationReq, type ISingleBookRes, type ICreateBookReq, type IUpdateRes, type IUpdateReq, type IDeleteBookRes, type BorrowRes, type BorrowReq, type BorrowSummaryRes, type BorrowSummaryReq } from '@/types'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
@@ -51,8 +51,8 @@ export const booksApi = createApi({
                 }
             })
         }),
-        borrowSummary: build.query<BorrowSummaryRes, void>({
-            query: () => '/api/borrow'
+        borrowSummary: build.query<BorrowSummaryRes, BorrowSummaryReq>({
+            query: (prop) => `/api/borrow?page=${prop?.page}&limit=${prop?.limit}`,
         }),
     }),
 })

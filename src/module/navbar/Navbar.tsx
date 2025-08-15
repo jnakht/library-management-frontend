@@ -31,7 +31,7 @@ export default function Navbar() {
                     {
                         NavbarMenu.map(item => 
                             <NavLink to={item?.link}
-                            className="inline-block py-1 px-3 hover:text-brand-primary hover:underline font-semibold"
+                            className="inline-block py-1 px-3 hover:text-brand-primary hover:underline font-semibold uppercase"
                             >{item?.title}</NavLink>
                         )
                     }

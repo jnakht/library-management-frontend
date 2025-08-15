@@ -2,6 +2,7 @@ import { useCreateBookMutation } from "@/redux/features/books/booksApi";
 import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 export type Inputs = {
     title: string;
@@ -24,7 +25,7 @@ export default function CreateBookForm() {
     reset,
   } = useForm<Inputs>()
 
-  const [createBook, { data, isLoading, error, isSuccess }] = useCreateBookMutation();
+  const [createBook, { data, isLoading, isError , error, isSuccess }] = useCreateBookMutation();
   console.log("outside handler: ", data);
   const onSubmit: SubmitHandler<Inputs> = async (value) => {
     //redux create book
@@ -36,9 +37,13 @@ export default function CreateBookForm() {
   const navigate = useNavigate();
   useEffect( () => {
     if (isSuccess) {
+      toast.success("Book Created Successfully");
       navigate('/books');
     }
-  },[isSuccess])
+    if (error) {
+        toast.error(error);
+    }
+  },[isSuccess, isError])
 
   return (
     <div className="max-w-[80%] mx-auto mb-20">
@@ -119,7 +124,7 @@ export default function CreateBookForm() {
         <select 
         defaultValue="true"
         className="border-2 p-2 rounded-sm"
-        {...register("available", { required: "Please Select Availability" })}>
+        {...register("available")}>
         <option value="true">Available</option>
         <option value="false">Not Available</option>
         </select>

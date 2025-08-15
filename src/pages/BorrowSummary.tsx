@@ -30,10 +30,10 @@ export default function BorrowSummary() {
   }
 
     const { data, isLoading, error } = useBorrowSummaryQuery(prop, {
-    // pollingInterval: 3000,
-    // refetchOnFocus: true,
-    // refetchOnMountOrArgChange: true,
-    // refetchOnReconnect: true,
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
   });
 
   if (data) {

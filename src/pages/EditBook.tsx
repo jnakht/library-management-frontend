@@ -11,7 +11,12 @@ import Updating from "@/module/loading/Updating";
 export default function EditBook() {
 
     const {id} = useParams();
-    const { data : singleBookData, isLoading : singleBookIsLoading } = useGetBookByIdQuery(id);
+    const { data : singleBookData, isLoading : singleBookIsLoading } = useGetBookByIdQuery(id, {
+      // pollingInterval: 60000,
+      refetchOnFocus: false,
+      refetchOnMountOrArgChange: true,
+      refetchOnReconnect: false,
+    });
 
     if (singleBookIsLoading) {
         <Loading />

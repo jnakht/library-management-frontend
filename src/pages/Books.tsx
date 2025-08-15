@@ -33,10 +33,10 @@ export default function Books() {
       limit: rowsPerPage,
   }
   const { data, error, isLoading } = useGetAllBooksQuery(prop, {
-    // pollingInterval: 3000,
-    // refetchOnFocus: true,
-    // refetchOnMountOrArgChange: true,
-    // refetchOnReconnect: true,
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
   });
 
 

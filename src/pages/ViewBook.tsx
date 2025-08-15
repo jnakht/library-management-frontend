@@ -14,7 +14,12 @@ export default function ViewBook() {
   
 
   const {id} = useParams();
-  const { data , isLoading } = useGetBookByIdQuery(id);
+  const { data , isLoading } = useGetBookByIdQuery(id, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
 
   const {
     register,

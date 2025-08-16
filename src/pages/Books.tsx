@@ -1,17 +1,16 @@
 import Loading from "@/module/loading/Loading";
 import { useGetAllBooksQuery } from "@/redux/features/books/booksApi";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TablePagination from '@mui/material/TablePagination';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setPage, setRowsPerPage, setTotalData } from "@/redux/features/books/paginationSlice";
-import { cn } from "@/lib/utils";
 import BookRow from "@/module/books/BookRow";
 import { toast } from "react-toastify";
 
 
 export default function Books() {
 
-  const { page, pageCount, rowsPerPage, totalData} = useAppSelector((state) => state.pagination);
+  const { page, rowsPerPage, totalData} = useAppSelector((state) => state.pagination);
   const dispatch = useAppDispatch();
 
   const handleChangeRowsPerPage = (
@@ -23,7 +22,7 @@ export default function Books() {
   };
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
     dispatch(setPage(newPage));

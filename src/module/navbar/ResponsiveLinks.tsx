@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { NavbarMenu } from "./data";
 
 
-export default function ResponsiveLinks({open}) {
+export default function ResponsiveLinks({open} : {open : boolean} ) {
   return (
     <AnimatePresence>
         {

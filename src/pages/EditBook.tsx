@@ -4,28 +4,25 @@ import { useParams } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form"
 import type { Inputs } from "@/module/books/CreateBookForm";
 import { useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Updating from "@/module/loading/Updating";
 
 
 export default function EditBook() {
 
     const {id} = useParams();
-    const { data : singleBookData, isLoading : singleBookIsLoading, isError: isErrorFetching } = useGetBookByIdQuery(id, {
+    const { data : singleBookData, isLoading : singleBookIsLoading, isError: isErrorFetching } = useGetBookByIdQuery(id as string, {
       // pollingInterval: 60000,
       refetchOnFocus: false,
       refetchOnMountOrArgChange: true,
       refetchOnReconnect: false,
     });
 
-    if (singleBookIsLoading) {
-       return <Loading />
-    }
+   
 
      const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
         reset,
       } = useForm<Inputs>()
@@ -46,7 +43,7 @@ export default function EditBook() {
         }
       } ,[singleBookData, reset])
     
-      const [updateBook, { data : updatedBookData, isLoading: isUpdating, isSuccess : updateSuccess, isError : isUpdateError}] = useUpdateBookMutation();
+      const [updateBook, { isLoading: isUpdating, isError : isUpdateError}] = useUpdateBookMutation();
       const onSubmit: SubmitHandler<Inputs> = async (value) => {
         // console.log(value);
         const draftValue = {
@@ -60,7 +57,8 @@ export default function EditBook() {
           reset(res?.data); 
         } catch (error) {
           console.log("This is the error", error);
-          toast.error(error?.error ? `${error?.error}` : 'Error Occurred!');
+          // toast.error(error?.error ? `${error?.error}` : 'Error Occurred!');
+          toast.error('Error Occurred!');
         }
       }
 
@@ -73,6 +71,9 @@ export default function EditBook() {
       if (isUpdating) {
         return <Updating/>
       }
+       if (singleBookIsLoading) {
+       return <Loading />
+    }
 
   return (
     <div className="max-w-[80%] mx-auto mb-20">

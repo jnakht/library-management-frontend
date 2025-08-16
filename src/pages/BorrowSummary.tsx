@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 export default function BorrowSummary() {
 
-    const { page, pageCount, rowsPerPage, totalData } = useAppSelector((state) => state.borrowPagination);
+    const { page, rowsPerPage, totalData } = useAppSelector((state) => state.borrowPagination);
     const dispatch = useAppDispatch();
 
     const handleChangeRowsPerPage = (
@@ -20,7 +20,7 @@ export default function BorrowSummary() {
   };
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
     dispatch(setPage(newPage));
@@ -31,7 +31,7 @@ export default function BorrowSummary() {
       limit: rowsPerPage,
   }
 
-    const { data, isLoading, error, isError } = useBorrowSummaryQuery(prop, {
+    const { data, isLoading, isError } = useBorrowSummaryQuery(prop, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

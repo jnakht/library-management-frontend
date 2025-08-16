@@ -1,6 +1,6 @@
-import { useState } from "react";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 type Inputs = {
     email: string,
@@ -10,7 +10,6 @@ export default function SubscribeSection() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
         reset,
     } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {

@@ -3,7 +3,7 @@ import { useGetBookByIdQuery } from "@/redux/features/books/booksApi";
 import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 type Inputs = {
@@ -15,7 +15,7 @@ export default function ViewBook() {
   
 
   const {id} = useParams();
-  const { data , isLoading, isError } = useGetBookByIdQuery(id, {
+  const { data , isLoading, isError } = useGetBookByIdQuery(id as string, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -25,7 +25,6 @@ export default function ViewBook() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm<Inputs>();

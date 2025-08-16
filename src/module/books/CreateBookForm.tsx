@@ -20,12 +20,11 @@ export default function CreateBookForm() {
     const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm<Inputs>()
 
-  const [createBook, { data, isLoading, isError , error, isSuccess }] = useCreateBookMutation();
+  const [createBook, { data, isSuccess }] = useCreateBookMutation();
   console.log("outside handler: ", data);
   const onSubmit: SubmitHandler<Inputs> = async (value) => {
     //redux create book
@@ -35,7 +34,7 @@ export default function CreateBookForm() {
       reset();
     } catch (error : any) {
       // console.log("This is error on creating book: ", error);
-      const field = error?.data?.error?.errors ? Object.keys(error?.data?.error?.errors)[0] : null;
+      const field = error?.data?.error?.errors ? Object.keys(error?.data?.error?.errors)[0] : "";
       const errorMsg = error?.data?.error?.errors?.[field]?.message ||  "Error Occurred!";
       toast.error(errorMsg);
     }

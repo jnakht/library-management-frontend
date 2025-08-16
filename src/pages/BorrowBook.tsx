@@ -8,7 +8,7 @@ import  dayjs, { Dayjs } from "dayjs";
 import * as React from 'react';
 import { useNavigate, useParams } from "react-router";
 import { useBorrowBookMutation } from "@/redux/features/books/booksApi";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 type Inputs = {
@@ -32,12 +32,11 @@ export default function BorrowBook() {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
         reset,
     } = useForm<Inputs>()
 
-    const [borrowBook, { isLoading, data, isSuccess, isError }] = useBorrowBookMutation();
+    const [borrowBook, { isSuccess, isError }] = useBorrowBookMutation();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
@@ -56,12 +55,15 @@ export default function BorrowBook() {
                 quantity: data?.quantity || 0,
                 dueDate: isoString || "",
             }
-            const res = await borrowBook(reqObject);
+             await borrowBook(reqObject);
             
-            if (res?.error) {
-                setServerError(res?.error?.data?.message);
-                return;
-            }
+            
+                // if ("data" in (res?.error as FetchBaseQueryError)) {
+                //     setServerError((res?.error as FetchBaseQueryError).data?.message);
+                //     return;
+                // }
+                
+           
             // console.log("this is response of borrow book: ", res);
             reset(); 
             setValue(null);
@@ -69,8 +71,9 @@ export default function BorrowBook() {
             setPastError(null);
         } catch (error) {
             // console.log("this is server error: ", error);
-            toast.error("error");
-            setServerError(error);
+            toast.error("Error Occurred!");
+            console.log(error);
+            // setServerError(error?.data?.message);
         }
     }
     const navigate = useNavigate()

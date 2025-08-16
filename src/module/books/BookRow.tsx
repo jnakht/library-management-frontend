@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 
 export default function BookRow({ book } : { book: TBook}) {
 
-    const [deleteBook, { data, isLoading, error, isSuccess, isError }] = useDeleteBookMutation();
+    const [deleteBook, { error, isSuccess, isError }] = useDeleteBookMutation();
     const handleDeleteBook = async () => {
      const result = await Swal.fire({
         title: "Are you sure?",

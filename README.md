@@ -17,26 +17,47 @@ The system allows users to manage books with CRUD operations like add books, vie
 ## 🚀 Features
 
 ### ✅ Backend Features
-- 📙 **Book Management** – Create, Read, Update, Delete books  
-- 📊 **Borrow Books** – Borrow with `bookId`, `quantity`, and `dueDate`  
-- 📈 **Borrow Summary** – Aggregated borrowed books data with pagination  
-- ⏳ **Pagination** – Available for both books and borrow summary  
-- 🧠 **Mongoose Middleware** – Pre & Post hooks for clean logic  
-- ⚙️ **Custom Methods** – Static & instance methods for availability control  
-- ✅ **Schema Validation** – Ensures data consistency and proper error handling  
+-  **Book Management** – Create, Read, Update, Delete books  
+-  **Borrow Books** – Borrow with `bookId`, `quantity`, and `dueDate`  
+-  **Borrow Summary** – Aggregated borrowed books data with pagination  
+-  **Pagination** – Available for both books and borrow summary  
+-  **Mongoose Middleware** – Pre & Post hooks for clean logic  
+-  **Custom Methods** – Static & instance methods for availability control  
+-  **Schema Validation** – Ensures data consistency and proper error handling  
 
 ### 🎨 Frontend Features
--  **Book Table** – View all books in a responsive table  
--  **Add Book** – Create new books via form  
--  **Edit Book** – Update existing book details  
--  **Delete Book** – Remove books with confirmation  
--  **Borrow Book** – Borrow via form with quantity & due date validation  
--  **Borrow Summary** – Display aggregated borrow report  
--  **Pagination** – Implemented for books and borrow summary  
--  **Responsive UI** – Built with Tailwind CSS, works on mobile/tablet/desktop  
+-  **Book Management**
+  - View all books in a responsive table with columns: Title, Author, Genre, ISBN, Copies, Availability, and Actions  
+  - **Add Book** – Create a new book via form  
+  - **Edit Book** – Update book info instantly (if copies = 0 → marked unavailable)  
+  - **Delete Book** – Confirmation dialog before deletion  
+-  **Borrow Book**
+  - Borrow via simple form with `quantity` and `dueDate`  
+  - Quantity validation (cannot exceed available copies)  
+  - If copies reach 0, book becomes unavailable  
+-  **Borrow Summary**
+  - Aggregated summary of borrowed books (title, ISBN, total quantity borrowed)  
+  - Supports pagination for large datasets  
+-  **Additional Features**
+  - Optimistic UI updates  
+  - Toast notifications (React Toastify)  
+  - Responsive, minimalist design using Tailwind CSS  
+  - Smooth animations (Framer Motion)   
 
 
 ---
+
+
+### 🖥️ Frontend Pages
+- `/books` – Displays all books with CRUD + borrow actions  
+- `/create-book` – Add a new book  
+- `/books/:id` – View book details  
+- `/edit-book/:id` – Edit existing book  
+- `/borrow/:bookId` – Borrow a specific book  
+- `/borrow-summary` – View aggregated borrow summary  
+
+---
+
 
 ## 🛠️ Technologies Used
 
@@ -48,17 +69,16 @@ The system allows users to manage books with CRUD operations like add books, vie
 - `validator`, `nodemon`, `ts-node-dev`
 - **Vercel** – Deployment
 
-### Frontend
-- **React + TypeScript**
-- **Redux Toolkit + RTK Query**
-- **Tailwind CSS**
-- **Framer Motion** (animations)
-- **React-Hook-Form**
-- **Swiper Slider**
-- **Material UI**
-- **Shadcn UI** (slightly)
-- **React Toastify**
-- **Vercel** – Deployment
+### 🛠️ Frontend 
+- **React + TypeScript**  
+- **Redux Toolkit + RTK Query** (API state management)  
+- **Tailwind CSS** (styling)  
+- **Framer Motion** (animations)  
+- **React-Hook-Form** (form handling + validation)  
+- **React Toastify** (notifications)  
+- **Material UI** (table, date picker)  
+- **Swiper Slider** (banner)  
+- **Vercel** – Deployment  
 
 ---
 
@@ -133,7 +153,7 @@ PORT=8080
 
 # Run server
 npm start
-
+```
 
 **Frontend Setup**
 
@@ -150,8 +170,10 @@ npm run dev
 ```
 
 ## 🧪 Testing
--Use Postman, Thunder Client, or any REST client for backend APIs
--Use the live frontend deployment to test UI & API integration
--Example Base URLs:
-  -Backend: `https://jnakht-library-management-backend.vercel.app/api`
-  -Frontend: `https://jnakht-library-management-frontend.vercel.app`
+
+- Use **Postman**, **Thunder Client**, or any REST client for backend APIs  
+- Use the **live frontend deployment** to test UI & API integration  
+
+### Example Base URLs
+- **Backend**: `https://jnakht-library-management-backend.vercel.app/api`  
+- **Frontend**: `https://jnakht-library-management-frontend.vercel.app`  

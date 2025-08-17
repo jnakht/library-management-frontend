@@ -174,6 +174,4 @@ npm run dev
 - Use **Postman**, **Thunder Client**, or any REST client for backend APIs  
 - Use the **live frontend deployment** to test UI & API integration  
 
-### Example Base URLs
-- **Backend**: `https://jnakht-library-management-backend.vercel.app/api`  
-- **Frontend**: `https://jnakht-library-management-frontend.vercel.app`  
+ 

@@ -132,7 +132,7 @@ export default function BorrowBook() {
                     <p className="text-red-500">{pastError ? pastError : ''}</p>
 
                     <div className="flex justify-end items-center">
-                        <button className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] px-6 py-2 duration-200 hidden md:block"><input type="submit" /></button>
+                        <button className="hover:bg-[#ff8901] text-[#ff8901] max-w-[160px] font-semibold hover:text-white rounded-md border-2 border-[#ff8901] px-6 py-2 duration-200"><input type="submit" /></button>
                     </div>
                 </form>
             </div>
